@@ -1,0 +1,75 @@
+﻿<Window x:Class="ExamMVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExamMVVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="810">
+    <Window.DataContext>
+        <local:ViewModel></local:ViewModel>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Key="StudentsTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="{Binding Path=Surname, 
+                            UpdateSourceTrigger=PropertyChanged}" FontSize="16"></Label>
+
+                <Label Grid.Column="1" 
+                               Content="{Binding Path=Group, UpdateSourceTrigger=PropertyChanged}" FontSize="16"></Label>
+
+                <Label Grid.Column="2"
+                               Content="{Binding Path=AverageScore, UpdateSourceTrigger=PropertyChanged}" FontSize="16"></Label>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="TeachersTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="{Binding Path=Surname, 
+                            UpdateSourceTrigger=PropertyChanged}" FontSize="16"></Label>
+
+                <Label Grid.Column="1" 
+                               Content="{Binding Path=Discipline, UpdateSourceTrigger=PropertyChanged}" FontSize="16"></Label>
+
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListBox SelectedItem="{Binding SelectedItemSt, 
+            UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Students
+            , UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" ItemTemplate="{StaticResource StudentsTemplate}">
+        </ListBox>
+        <ListBox SelectedItem="{Binding SelectedItemTeach, 
+            UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Teachers, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource TeachersTemplate}" Grid.Row="1" Grid.Column="1"></ListBox>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <Button Command="{Binding AddButtonSt, UpdateSourceTrigger=PropertyChanged}" Width="120" >Добавить студента</Button>
+            <Button Command="{Binding AddButtonTeacher, UpdateSourceTrigger=PropertyChanged}" Width="150" >Добавить преподавателя</Button>
+            <Button Command="{Binding UpdateButtonSt, UpdateSourceTrigger=PropertyChanged}"  Width="120" >Изменить студента</Button>
+            <Button Command="{Binding UpdateButtonTeacher, UpdateSourceTrigger=PropertyChanged}" Width="150" >Изменить преподавателя</Button>
+            <Button Command="{Binding DeleteButtonSt,UpdateSourceTrigger=PropertyChanged}" Width="110" >Удалить студента</Button>
+            <Button Command="{Binding DeleteButtonTeacher,UpdateSourceTrigger=PropertyChanged}" Width="155" >Удалить преподавателя</Button>
+        </StackPanel>
+        
+        
+    </Grid>
+</Window>
