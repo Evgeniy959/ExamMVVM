@@ -55,6 +55,17 @@
             <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <TextBox Text="{Binding FindStudent, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding FindTeacher, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></TextBox>
+        <StackPanel Orientation="Vertical" Grid.Row="1"  Grid.Column="2">
+            <Label HorizontalContentAlignment="Center" Content="Введите Id Преподавателя"/>
+            <TextBox Text="{Binding ShowStudent,UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0"  Grid.Column="2">
+            <RadioButton IsChecked="{Binding Rb2, UpdateSourceTrigger=PropertyChanged}" Margin="3">Сортировать по группе</RadioButton>
+            <RadioButton IsChecked="{Binding Rb1, UpdateSourceTrigger=PropertyChanged}" Margin="3">Сортировать по среднему баллу</RadioButton>
+        </StackPanel>
         <ListBox SelectedItem="{Binding SelectedItemSt, 
             UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Students
             , UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" ItemTemplate="{StaticResource StudentsTemplate}">

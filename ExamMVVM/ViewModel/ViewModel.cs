@@ -25,6 +25,7 @@ namespace ExamMVVM
         public static Teacher selectedItemTeach; 
         List<Student> students;
         List<Teacher> teachers;
+        string findText;
         public ViewModel()
         {            
             students = new List<Student>();
@@ -160,6 +161,58 @@ namespace ExamMVVM
                   }
               });
             }
+        }
+        public string FindStudent
+        {
+            get { return findText; }
+            set
+            {
+                findText = value;
+                FindStudents(findText);
+                PropertyChanging("FindText");
+            }
+        }
+        public string FindTeacher
+        {
+            get { return findText; }
+            set
+            {
+                findText = value;
+                FindTeachers(findText);
+                PropertyChanging("FindText");
+            }
+        }
+        public string ShowStudent
+        {
+            get { return findText; }
+            set
+            {
+                findText = value;
+                ShowStudents(findText);
+                PropertyChanging("FindText");
+            }
+        }
+        void FindStudents(string text = "")
+        {
+            students = (from student in universityContext.Students
+                        where student.Surname.Contains(text)
+                        select student).ToList();
+            Students = students;
+        }
+        void FindTeachers(string text = "")
+        {
+            teachers = (from teacher in universityContext.Teachers
+                        where teacher.Surname.Contains(text)
+                        select teacher).ToList();
+            Teachers = teachers;
+        }
+        void ShowStudents(string text = "")
+        {
+            students = (from student in universityContext.Students
+                        //where AddPositionViewModel.id == student.TeacherId
+                        where student.TeacherId.ToString().Contains(text)
+                        select student).ToList();
+            Students = students;
         }
         void RefreshDataStudent()
         {

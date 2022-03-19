@@ -17,7 +17,7 @@ namespace ExamMVVM
         string surnameT;
         string group;
         double aveScore;
-        int id;
+        public static int id;
 
         public AddPositionViewModel()
         {
