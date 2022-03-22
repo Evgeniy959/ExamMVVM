@@ -16,6 +16,8 @@ namespace ExamMVVM
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+        bool rb1;
+        bool rb2;
         public static AddStudent addStudent;
         public static UpdateStudent updateStudent;
         public static UpdateTeacher updateTeacher;
@@ -162,6 +164,26 @@ namespace ExamMVVM
               });
             }
         }
+        public bool Rb1
+        {
+            get { return rb1; }
+            set
+            {
+                rb1 = value;
+                PropertyChanging("Rb1");
+                RefreshDataStudent();
+            }
+        }
+        public bool Rb2
+        {
+            get { return rb2; }
+            set
+            {
+                rb2 = value;
+                PropertyChanging("Rb2");
+                RefreshDataStudent();
+            }
+        }
         public string FindStudent
         {
             get { return findText; }
@@ -206,20 +228,6 @@ namespace ExamMVVM
                         select teacher).ToList();
             Teachers = teachers;
         }
-        void ShowStudents(string text = "")
-        {
-            students = (from student in universityContext.Students
-                        where student.TeacherId.ToString().Contains(text)
-                        select student).ToList();
-            Students = students;
-        }
-        void RefreshDataStudent()
-        {
-            students = (from stud in universityContext.Students
-                        where true
-                        select stud).ToList();
-            Students = students;
-        }
         void RefreshDataTeacher()
         {
             teachers = (from teacher in universityContext.Teachers
@@ -227,6 +235,35 @@ namespace ExamMVVM
                         select teacher).ToList();
             Teachers = teachers;
         }
+        void RefreshDataStudent()
+        {
+            if(rb1) 
+            {
+                students = (from student in universityContext.Students
+                            orderby student.Group// ascending
+                            select student).ToList();
+            }
+            else if (rb2)
+            {
+                students = (from student in universityContext.Students
+                            orderby student.AverageScore
+                            select student).ToList();
+            }
+            else
+            {
+                students = (from student in universityContext.Students
+                            select student).ToList();
+            }
+            Students = students;
+        }
+        void ShowStudents(string text = "")
+        {
+            students = (from student in universityContext.Students
+                        where student.TeacherId.ToString().Contains(text)
+                        select student).ToList();
+            Students = students;
+        }
+
         public List<Student> Students
         {
             get { return students; }
