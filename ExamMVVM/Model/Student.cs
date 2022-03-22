@@ -11,8 +11,6 @@ namespace ExamMVVM
         public int Id { get; set; }
         public string Surname { get; set; }
         public string Group { get; set; }
-        //public string Teacher { get; set; }
-        //public Teacher Teacher { get; set; }
         public double AverageScore { get; set; }
         public int TeacherId { get; set; }
     }
