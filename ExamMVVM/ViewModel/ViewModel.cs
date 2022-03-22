@@ -209,7 +209,6 @@ namespace ExamMVVM
         void ShowStudents(string text = "")
         {
             students = (from student in universityContext.Students
-                        //where AddPositionViewModel.id == student.TeacherId
                         where student.TeacherId.ToString().Contains(text)
                         select student).ToList();
             Students = students;
